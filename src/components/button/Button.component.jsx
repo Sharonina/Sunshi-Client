@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Button.module.css";
+import styles from "./Button.module.styl";
 import clsx from "clsx";
 
 const Button = (props) => {
