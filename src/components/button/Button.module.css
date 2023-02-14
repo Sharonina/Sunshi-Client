@@ -1,0 +1,22 @@
+.button {
+  background-color: rgb(76, 189, 189);
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: rgb(107, 78, 135);
+  color: #ecf5f4;
+}
+
+.secondary {
+  background-color: rgb(151, 124, 176);
+  color: #ecf5f4;
+}
+
+.hovereable:hover {
+  background-color: rgb(84, 55, 111);
+  color: #ecf5f4;
+}
