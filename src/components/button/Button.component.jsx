@@ -11,6 +11,8 @@ const Button = (props) => {
         styles[type],
         isHovereable && styles.hovereable
       )}
+      //onClick={onClick}
+      data-testid="button"
     >
       {children}
     </button>
