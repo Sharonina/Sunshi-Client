@@ -1,7 +1,7 @@
 import React from "react";
 
 const Product = () => {
-  return <div data-testId="product-page">Product</div>;
+  return <div data-testid="product-page">Product</div>;
 };
 
 export default Product;
