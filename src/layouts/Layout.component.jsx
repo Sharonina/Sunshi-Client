@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import styles from "./Layout.module.styl";
 import logo from "../assets/sunshi2.png";
 import { routes } from "../utils/constants/routes";
@@ -26,14 +26,42 @@ const Layout = () => {
                 </p>
                 <p className={styles.userName}>Sharoninadmin</p>
               </div>
-              <button>btn</button>
+              <button></button>
             </div>
           </div>
           <nav>
-            <Link to={routes.HOME}>Home</Link>
-            <Link to={routes.PRODUCTS}>Products</Link>
-            <Link to={routes.ORDERS}>Orders</Link>
-            <Link to={routes.USERS}>Users</Link>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? styles.isLinkActive : undefined
+              }
+              to={routes.HOME}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? styles.isLinkActive : undefined
+              }
+              to={routes.PRODUCTS}
+            >
+              Products
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? styles.isLinkActive : undefined
+              }
+              to={routes.ORDERS}
+            >
+              Orders
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? styles.isLinkActive : undefined
+              }
+              to={routes.USERS}
+            >
+              Users
+            </NavLink>
           </nav>
         </header>
         <Outlet />
