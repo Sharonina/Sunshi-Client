@@ -1,4 +1,4 @@
 export const protectionTypes = {
-  ADMIN: "ADMIN",
-  LOGIN: "LOGIN",
+  isAdmin: "isAdmin",
+  isLogged: "isLogged",
 };
