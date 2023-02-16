@@ -35,6 +35,7 @@ const Layout = () => {
                 isActive ? styles.isLinkActive : undefined
               }
               to={routes.HOME}
+              data-testid="nav-home"
             >
               Home
             </NavLink>
@@ -43,6 +44,7 @@ const Layout = () => {
                 isActive ? styles.isLinkActive : undefined
               }
               to={routes.PRODUCTS}
+              data-testid="nav-products"
             >
               Products
             </NavLink>
@@ -51,6 +53,7 @@ const Layout = () => {
                 isActive ? styles.isLinkActive : undefined
               }
               to={routes.ORDERS}
+              data-testid="nav-orders"
             >
               Orders
             </NavLink>
@@ -59,6 +62,7 @@ const Layout = () => {
                 isActive ? styles.isLinkActive : undefined
               }
               to={routes.USERS}
+              data-testid="nav-users"
             >
               Users
             </NavLink>
