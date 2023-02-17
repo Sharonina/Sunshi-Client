@@ -8,6 +8,23 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState(undefined);
   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true);
+  const { VITE_API_URL } = import.meta.env;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const myURL = `${VITE_API_URL}/users/login`;
+    const data = {
+      email,
+      password,
+    };
+    const response = await fetch(myURL, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    });
+    const json = await response.json();
+    console.log(json);
+  };
 
   const handleEmailChange = (event) => {
     const emailValue = event.target.value;
@@ -58,22 +75,12 @@ const Login = () => {
     }
   }, [errors]);
 
-  const funcion = async () => {
-    const myURL = "https://burguerqueenapi.onrender.com/users/login";
-    const data = {
-      email,
-      password,
-    };
-    const response = await fetch(myURL, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "content-type": "application/json" },
-    });
-    const json = await response.json();
-    console.log(json);
-  };
   return (
-    <section data-testid="login-page">
+    <form
+      onSubmit={handleSubmit}
+      className={styles.sectionLogin}
+      data-testid="login-page"
+    >
       <figure>
         <img src={logo} alt="sunshi logo" />
       </figure>
@@ -99,11 +106,11 @@ const Login = () => {
       <button
         className={clsx(isSubmitDisabled && styles.isSubmitDisabled)}
         disabled={isSubmitDisabled}
-        onClick={funcion}
+        type="submit"
       >
         Sign in
       </button>
-    </section>
+    </form>
   );
 };
 

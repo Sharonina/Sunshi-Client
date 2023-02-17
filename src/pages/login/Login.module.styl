@@ -1,4 +1,4 @@
-section
+.sectionLogin
   width: 100vw
   height: 100vh
   display: flex
@@ -55,14 +55,13 @@ section
       background-color: var(--jade-light)
       border-top: 0.3rem solid var(--jade)
       border-left: 0.3rem solid var(--jade)
-
-.isSubmitDisabled
-  opacity: 50%
-  cursor: not-allowed;
-  &:hover
+  & .isSubmitDisabled
     opacity: 50%
-    background-color: var(--jade)
-    border-bottom: .3rem solid var(--jade-dark)
-    border-right: .3rem solid var(--jade-dark)
-    border-top: .3rem solid var(--jade-light)
-    border-left: .3rem solid var(--jade-light)
+    cursor: not-allowed;
+    &:hover
+      opacity: 50%
+      background-color: var(--jade)
+      border-bottom: .3rem solid var(--jade-dark)
+      border-right: .3rem solid var(--jade-dark)
+      border-top: .3rem solid var(--jade-light)
+      border-left: .3rem solid var(--jade-light)
