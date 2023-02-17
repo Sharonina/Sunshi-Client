@@ -1,0 +1,58 @@
+section
+  width: 100vw
+  height: 100vh
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  & figure
+    width: 16%
+    height: 20%
+    & img
+      width: 100%
+  & div
+    color: var(--green-light)
+    width: 35%
+    height: 28%
+    display: flex
+    align-items: flex-start
+    flex-direction: column
+    justify-content: center
+    font-size: 1.7vw
+    & input
+      background: none
+      font-size: 1.7vw
+      margin: 2% 0
+      border: none
+      border-bottom: .1rem solid var(--green)
+      width: 100%
+      height: 2rem
+      outline: none
+      color: var(--white)
+      outline-color: var(--green)
+    & p
+      margin-top: 1rem
+    & .errorMessage
+      color: var(--red)
+      font-size: 1.4vw
+      margin: 0
+      display: none
+  & button
+    width: 25%
+    height: 8%
+    border-radius: 1rem
+    background-color: var(--jade)
+    color: var(--white)
+    border-bottom: .3rem solid var(--jade-dark)
+    border-right: .3rem solid var(--jade-dark)
+    border-top: .3rem solid var(--jade-light)
+    border-left: .3rem solid var(--jade-light)
+    cursor: pointer
+    margin-top: 3%
+    font-size: 1.6vw
+    font-weight: 600
+    letter-spacing: .05rem
+    &:hover
+      background-color: var(--jade-light)
+      border-top: 0.3rem solid var(--jade)
+      border-left: 0.3rem solid var(--jade)
