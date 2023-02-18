@@ -1,10 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { protectionTypes } from "../constants/authentication";
 import { routes } from "../constants/routes";
 
 const ProtectedRoute = (props) => {
-  const navigate = useNavigate();
   const {
     children,
     isLogged = false,
@@ -12,10 +11,10 @@ const ProtectedRoute = (props) => {
     isAdmin = false,
   } = props;
   if (protections.includes(protectionTypes.isAdmin) && !isAdmin) {
-    return navigate(routes.HOME);
+    return <Navigate to={routes.HOME} />;
   }
   if (protections.includes(protectionTypes.isLogged) && !isLogged) {
-    return navigate(routes.LOGIN);
+    return <Navigate to={routes.LOGIN} />;
   }
   return children;
 };
