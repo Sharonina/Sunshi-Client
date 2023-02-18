@@ -12,16 +12,21 @@ import { protectionTypes } from "./utils/constants/authentication";
 import { routes } from "./utils/constants/routes";
 import ProtectedRoute from "./utils/ProtectedRoute/ProtectedRoute.component";
 import { UserContext } from "./context/UserContext";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { token, setToken, userInfo, setUserInfo } = useAuth();
   //simpre debe retornar un nodo de react. puede ser un fragment <> agrupa sin dar un padre
   return (
-    <UserContext.Provider>
+    <UserContext.Provider value={{ token, setToken, userInfo, setUserInfo }}>
       <BrowserRouter>
         <Routes>
           <Route
             element={
-              <ProtectedRoute protections={[protectionTypes.isLogged]} isLogged>
+              <ProtectedRoute
+                protections={[protectionTypes.isLogged]}
+                isLogged={Boolean(token)}
+              >
                 <LayoutComponent />
               </ProtectedRoute>
             }
@@ -32,7 +37,10 @@ function App() {
             <Route
               path={routes.USERS}
               element={
-                <ProtectedRoute protections={[protectionTypes.isAdmin]} isAdmin>
+                <ProtectedRoute
+                  protections={[protectionTypes.isAdmin]}
+                  isAdmin={userInfo.admin}
+                >
                   <UserComponent />
                 </ProtectedRoute>
               }

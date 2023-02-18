@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import styles from "./Login.module.styl";
 import logo from "@/assets/sunshi1.png";
+import { UserContext } from "@/context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { routes } from "@/utils/constants/routes";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState(undefined);
   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true);
+  const { setToken, setUserInfo } = useContext(UserContext);
+  const navigate = useNavigate();
   const { VITE_API_URL } = import.meta.env;
 
   const handleSubmit = async (event) => {
@@ -23,7 +28,11 @@ const Login = () => {
       headers: { "content-type": "application/json" },
     });
     const json = await response.json();
-    console.log(json);
+    if (json.token && json.userInfo) {
+      setToken(json.token);
+      setUserInfo(json.userInfo);
+      navigate(routes.HOME);
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -78,7 +87,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={styles.sectionLogin}
+      className={styles.loginSection}
       data-testid="login-page"
     >
       <figure>

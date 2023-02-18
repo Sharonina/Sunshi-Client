@@ -5,16 +5,17 @@ export const UserContext = createContext({
   setToken: () => {},
   userInfo: {
     id: "",
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     role: "",
-    isAdmin: false,
+    admin: false,
     restaurant: {
       id: "",
       name: "",
     },
   },
-  handleLogin: () => {},
-  handleLogout: () => {},
+  setUserInfo: () => {},
+  //handleLogin: () => {},
+  //handleLogout: () => {},
 });

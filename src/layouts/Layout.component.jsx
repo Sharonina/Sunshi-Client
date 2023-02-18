@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import clsx from "clsx";
 import { Outlet, NavLink } from "react-router-dom";
 import styles from "./Layout.module.styl";
 import logo from "../assets/sunshi2.png";
 import { routes } from "../utils/constants/routes";
+import { UserContext } from "@/context/UserContext";
 
 const Layout = () => {
+  const { userInfo } = useContext(UserContext);
+  const isAdmin = userInfo.admin;
   const today = new Date();
+
   return (
     <div data-testid="layout-container">
       <main>
@@ -24,7 +29,9 @@ const Layout = () => {
                     minute: "numeric",
                   })}
                 </p>
-                <p className={styles.userName}>Sharoninadmin</p>
+                <p className={styles.userName}>
+                  {userInfo.first_name} {userInfo.last_name}
+                </p>
               </div>
               <button></button>
             </div>
@@ -54,14 +61,16 @@ const Layout = () => {
             >
               Orders
             </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? styles.isLinkActive : undefined
-              }
-              to={routes.USERS}
-            >
-              Users
-            </NavLink>
+            {isAdmin && (
+              <NavLink
+                className={({ isActive }) =>
+                  clsx(isActive && styles.isLinkActive)
+                }
+                to={routes.USERS}
+              >
+                Users
+              </NavLink>
+            )}
           </nav>
         </header>
         <Outlet />
