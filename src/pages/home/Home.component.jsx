@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "@/context/UserContext";
 
 const Home = () => {
-  return <div data-testid="home-page">Home</div>;
+  const { token, userInfo } = useContext(UserContext);
+  return <div data-testid="home-page">Home: {userInfo.first_name}</div>;
 };
 
 export default Home;

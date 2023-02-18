@@ -1,4 +1,4 @@
-section
+.loginSection
   width: 100vw
   height: 100vh
   display: flex
@@ -36,7 +36,6 @@ section
       color: var(--red)
       font-size: 1.4vw
       margin: 0
-      display: none
   & button
     width: 25%
     height: 8%
@@ -56,3 +55,13 @@ section
       background-color: var(--jade-light)
       border-top: 0.3rem solid var(--jade)
       border-left: 0.3rem solid var(--jade)
+  & .isSubmitDisabled
+    opacity: 50%
+    cursor: not-allowed;
+    &:hover
+      opacity: 50%
+      background-color: var(--jade)
+      border-bottom: .3rem solid var(--jade-dark)
+      border-right: .3rem solid var(--jade-dark)
+      border-top: .3rem solid var(--jade-light)
+      border-left: .3rem solid var(--jade-light)
