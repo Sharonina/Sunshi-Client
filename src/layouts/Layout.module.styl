@@ -47,6 +47,10 @@ header
       border-right: .3rem solid var(--principal-gray-dark)
       border-top: .3rem solid var(--principal-gray-light)
       border-left: .3rem solid var(--principal-gray-light)
+      transition: 0.5s;
+      &:hover
+        scale: (1.1)
+        box-shadow: 0 0 .5rem var(--gray);
     & .optionsMenu
       position: absolute
       background-color: var(--principal-gray)
@@ -81,9 +85,10 @@ header
       font-size: 2vw
       color: var(--white)
       text-decoration: none
+      transition: 0.5s;
       &:hover
         color: var(--green-light)
-        font-size: 2.2vw
+        scale: (1.1)
 
 .isLinkActive
   color: var(--green)

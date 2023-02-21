@@ -17,5 +17,5 @@ export const UserContext = createContext({
   },
   setUserInfo: () => {},
   //handleLogin: () => {},
-  //handleLogout: () => {},
+  handleLogout: () => {},
 });

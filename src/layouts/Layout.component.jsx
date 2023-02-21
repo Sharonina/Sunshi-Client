@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import clsx from "clsx";
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, Link } from "react-router-dom";
 import styles from "./Layout.module.styl";
 import logo from "../assets/sunshi2.png";
 import { routes } from "../utils/constants/routes";
 import { UserContext } from "@/context/UserContext";
 
 const Layout = () => {
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, handleLogout } = useContext(UserContext);
   const isAdmin = userInfo.admin;
   const today = new Date();
 
@@ -35,15 +35,24 @@ const Layout = () => {
                   {userInfo.first_name} {userInfo.last_name}
                 </p>
               </div>
-              <button className={openMenu}></button>
-              <div className={styles.optionsMenu}>
-                <NavLink className={styles.option} to={routes.HOME}>
-                  My profile
-                </NavLink>
-                <NavLink className={styles.option} to={routes.HOME}>
-                  Log out
-                </NavLink>
-              </div>
+              <button
+                className="openMenu"
+                onClick={() => setOpenMenu(!openMenu)}
+              ></button>
+              {openMenu && (
+                <div className={styles.optionsMenu}>
+                  <Link className={styles.option} to={routes.HOME}>
+                    My profile
+                  </Link>
+                  <Link
+                    className={styles.option}
+                    to={routes.LOGIN}
+                    onClick={() => handleLogout()}
+                  >
+                    Log out
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
           <nav>
