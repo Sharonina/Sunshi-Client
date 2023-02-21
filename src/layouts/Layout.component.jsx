@@ -11,6 +11,8 @@ const Layout = () => {
   const isAdmin = userInfo.admin;
   const today = new Date();
 
+  const [openMenu, setOpenMenu] = React.useState(false);
+
   return (
     <div data-testid="layout-container">
       <main>
@@ -33,7 +35,15 @@ const Layout = () => {
                   {userInfo.first_name} {userInfo.last_name}
                 </p>
               </div>
-              <button></button>
+              <button className={openMenu}></button>
+              <div className={styles.optionsMenu}>
+                <NavLink className={styles.option} to={routes.HOME}>
+                  My profile
+                </NavLink>
+                <NavLink className={styles.option} to={routes.HOME}>
+                  Log out
+                </NavLink>
+              </div>
             </div>
           </div>
           <nav>
