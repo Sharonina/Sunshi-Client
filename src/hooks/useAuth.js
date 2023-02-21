@@ -14,10 +14,15 @@ export const useAuth = () => {
   const [token, setToken] = React.useState(getTokenFromLocalStorage());
   const [userInfo, setUserInfo] = React.useState(getUserInfoFromLocalStorage());
 
+  const handleLogout = () => {
+    setToken("");
+    setUserInfo("");
+  };
+
   React.useEffect(() => {
     localStorage.setItem("token", token);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
   }, [token]);
 
-  return { token, setToken, userInfo, setUserInfo };
+  return { token, setToken, userInfo, setUserInfo, handleLogout };
 };
