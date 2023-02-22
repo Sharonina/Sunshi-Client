@@ -15,17 +15,31 @@ import { UserContext } from "./context/UserContext";
 import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  const { token, setToken, userInfo, setUserInfo } = useAuth();
+  const {
+    authorization,
+    setAuthorization,
+    userInfo,
+    setUserInfo,
+    handleLogout,
+  } = useAuth();
   //simpre debe retornar un nodo de react. puede ser un fragment <> agrupa sin dar un padre
   return (
-    <UserContext.Provider value={{ token, setToken, userInfo, setUserInfo }}>
+    <UserContext.Provider
+      value={{
+        authorization,
+        setAuthorization,
+        userInfo,
+        setUserInfo,
+        handleLogout,
+      }}
+    >
       <BrowserRouter>
         <Routes>
           <Route
             element={
               <ProtectedRoute
                 protections={[protectionTypes.isLogged]}
-                isLogged={Boolean(token)}
+                isLogged={Boolean(authorization.token)}
               >
                 <LayoutComponent />
               </ProtectedRoute>

@@ -1,28 +1,42 @@
 import React from "react";
 
 const getTokenFromLocalStorage = () => {
-  const token = localStorage.getItem("token");
-  return token ? token : "";
-};
+  const authorization = localStorage.getItem("token");
+  const { token, expireDate } = JSON.parse(authorization || "{}");
 
-const getUserInfoFromLocalStorage = () => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
-  return userInfo ? userInfo : "";
+  if (token && expireDate) {
+    if (new Date(expireDate) > new Date()) {
+      return { token, expireDate };
+    } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("expireDate");
+      return { token: "", expireDate: "" };
+    }
+  }
+
+  return { token: "", expireDate: "" };
 };
 
 export const useAuth = () => {
-  const [token, setToken] = React.useState(getTokenFromLocalStorage());
-  const [userInfo, setUserInfo] = React.useState(getUserInfoFromLocalStorage());
+  const [authorization, setAuthorization] = React.useState(
+    getTokenFromLocalStorage()
+  );
+  const [userInfo, setUserInfo] = React.useState({});
 
   const handleLogout = () => {
-    setToken("");
-    setUserInfo("");
+    setAuthorization({ token: "", expireDate: "" });
+    setUserInfo({});
   };
 
   React.useEffect(() => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-  }, [token]);
+    localStorage.setItem("token", JSON.stringify(authorization));
+  }, [authorization]);
 
-  return { token, setToken, userInfo, setUserInfo, handleLogout };
+  return {
+    authorization,
+    setAuthorization,
+    userInfo,
+    setUserInfo,
+    handleLogout,
+  };
 };

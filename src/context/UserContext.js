@@ -1,10 +1,11 @@
 import { createContext } from "react";
 
 export const UserContext = createContext({
-  token: "",
+  authorization: { token: "", expireDate: "" },
+  setAuthorization: () => {},
   setToken: () => {},
   userInfo: {
-    id: "",
+    _id: "",
     first_name: "",
     last_name: "",
     email: "",
