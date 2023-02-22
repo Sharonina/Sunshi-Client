@@ -5,34 +5,28 @@ import logo from "@/assets/sunshi1.png";
 import { UserContext } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/utils/constants/routes";
+import { useApi } from "../../hooks/useApi";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState(undefined);
   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true);
-  const { setToken, setUserInfo } = useContext(UserContext);
+  const { setAuthorization } = useContext(UserContext);
+  const { postWithoutAuthorization } = useApi();
   const navigate = useNavigate();
-  const { VITE_API_URL } = import.meta.env;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const myURL = `${VITE_API_URL}/users/login`;
-    const data = {
+    const apiUrl = `/users/login`;
+    const body = {
       email,
       password,
     };
-    const response = await fetch(myURL, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "content-type": "application/json" },
-    });
-    const json = await response.json();
-    if (json.token && json.userInfo) {
-      setToken(json.token);
-      setUserInfo(json.userInfo);
-      navigate(routes.HOME);
-    }
+    const data = await postWithoutAuthorization(apiUrl, body);
+    if (!data) return;
+    setAuthorization({ token: data.token, expireDate: data.expireDate });
+    navigate(routes.HOME);
   };
 
   const handleEmailChange = (event) => {
