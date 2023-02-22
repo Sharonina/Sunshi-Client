@@ -5,9 +5,11 @@ import styles from "./Layout.module.styl";
 import logo from "../assets/sunshi2.png";
 import { routes } from "../utils/constants/routes";
 import { UserContext } from "@/context/UserContext";
+import { UtilsContext } from "@/context/UtilsContext";
 
 const Layout = () => {
   const { userInfo, handleLogout } = useContext(UserContext);
+  const { setShowSnackbar, setSnackbar } = useContext(UtilsContext);
   const isAdmin = userInfo.admin;
   const today = new Date();
 
@@ -41,12 +43,24 @@ const Layout = () => {
               ></button>
               {openMenu && (
                 <div className={styles.optionsMenu}>
-                  <Link className={styles.option} to={routes.HOME}>
-                    My profile
+                  <Link
+                    className={styles.option}
+                    to={routes.HOME}
+                    data-testid="nav-profile"
+                    onClick={() => {
+                      setShowSnackbar(true);
+                      setSnackbar({
+                        message: "Profile page is not implemented yet",
+                        severity: "warning",
+                      });
+                    }}
+                  >
+                    Profile
                   </Link>
                   <Link
                     className={styles.option}
                     to={routes.LOGIN}
+                    data-testid="nav-logout"
                     onClick={() => handleLogout()}
                   >
                     Log out

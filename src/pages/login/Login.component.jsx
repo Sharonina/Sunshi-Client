@@ -23,8 +23,9 @@ const Login = () => {
       email,
       password,
     };
-    const { token, expireDate } = await postWithoutAuthorization(apiUrl, body);
-    setAuthorization({ token, expireDate });
+    const data = await postWithoutAuthorization(apiUrl, body);
+    if (!data) return;
+    setAuthorization({ token: data.token, expireDate: data.expireDate });
     navigate(routes.HOME);
   };
 
