@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <section data-testid="home-page">
-      <div>
+      <div className={styles.divContainer}>
         <figure>
           <img src={sushiImg} alt="" />
         </figure>
