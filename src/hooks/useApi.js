@@ -7,18 +7,19 @@ export const useApi = () => {
   const { authorization } = useContext(UserContext);
   const { setShowSnackbar, setSnackbar } = useContext(UtilsContext);
 
-  const getWithAuthorization = async (url) => {
+  const getWithAuthorization = async (url, options) => {
     const apiUrl = `${VITE_API_URL}${url}`; //ya incluye slash
     const response = await fetch(apiUrl, {
       headers: {
         Authorization: authorization.token,
       },
+      ...options,
     });
     const data = await response.json();
     return data;
   };
 
-  const postWithoutAuthorization = async (url, body) => {
+  const postWithoutAuthorization = async (url, body, options) => {
     try {
       const apiUrl = `${VITE_API_URL}${url}`;
       const response = await fetch(apiUrl, {
@@ -42,7 +43,7 @@ export const useApi = () => {
     }
   };
 
-  const postWithAuthorization = async (url, body) => {
+  const postWithAuthorization = async (url, body, options) => {
     const apiUrl = `${VITE_API_URL}${url}`;
     const response = await fetch(apiUrl, {
       method: "POST",

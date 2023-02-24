@@ -1,84 +1,74 @@
-import React, { useContext } from "react";
-import { UserContext } from "@/context/UserContext";
+import React from "react";
 import styles from "./Product.module.styl";
+import { routes } from "@/utils/constants/routes";
+import { useApi } from "@/hooks/useApi";
 import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
+import ProductDetail from "./productDetail/productDetail.component";
 
-const Product = () => {
+const ProductCategories = {
+  Food: 1,
+  Drinks: 2,
+  Desserts: 3,
+  Sides: 4,
+};
+
+const Products = () => {
+  const [productsByCategory, setProductsByCategory] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState(undefined);
-  const products = [
-    {
-      category: "Food",
-      products: [
-        {
-          name: "Sunshi 1",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Sunshi 2",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Sunshi 3",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Sunshi 4",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Sunshi 5",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-      ],
-    },
-    {
-      category: "Drinks",
-      products: [
-        {
-          name: "Drink 1",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Drink 2",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Drink 3",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Drink 4",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-        {
-          name: "Drink 5",
-          /* price: 100, */
-          image: "https://picsum.photos/200",
-        },
-      ],
-    },
-  ];
+  const [selectedProduct, setSelectedProduct] = React.useState(undefined);
+  const { getWithAuthorization } = useApi();
+
+  function handleSelectedCategory(category) {
+    if (selectedCategory === category) return setSelectedCategory(undefined);
+    return setSelectedCategory(category);
+  }
+
+  const productItems = productsByCategory.map((item) => {
+    const products = item.products.map((product) => (
+      <div key={product.name} onClick={() => setSelectedProduct(product)}>
+        <h3>{product.name}</h3>
+        <figure>
+          <img src={product.image} alt={product.name} />
+        </figure>
+      </div>
+    ));
+    return {
+      category: item.category,
+      products,
+    };
+  });
+
+  React.useEffect(() => {
+    const getProducts = async () => {
+      const products = await getWithAuthorization(
+        `${routes.PRODUCTS}?byCategory=true`
+      );
+
+      // Sort categories by priority
+      products.sort((a, b) => {
+        const aIndex = ProductCategories[a.category];
+        const bIndex = ProductCategories[b.category];
+        return aIndex - bIndex;
+      });
+      setProductsByCategory(products);
+    };
+    getProducts();
+  }, []);
+
   return (
     <div data-testid="product-page" className={styles.products}>
       <section className="left">
         <InteractiveCategory
-          categories={products}
+          categories={productItems}
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+          setSelectedCategory={handleSelectedCategory}
         />
       </section>
-      <section className="right">right</section>
+      <section className="right">
+        <ProductDetail product={selectedProduct} />
+      </section>
     </div>
   );
 };
 
-export default Product;
+export default Products;

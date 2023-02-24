@@ -1,24 +1,25 @@
 import React from "react";
+import clsx from "clsx";
 import styles from "./InteractiveCategory.module.styl";
 
 function InteractiveCategory(props) {
   const { categories, selectedCategory, setSelectedCategory } = props;
   return (
-    <div>
+    <div className={styles.categoriesContainer}>
       {categories.map((item) => (
-        <div key={item.category}>
+        <div
+          key={item.category}
+          className={clsx(
+            styles.categoryContainer,
+            selectedCategory === item.category && styles.categorySelected
+          )}
+        >
           <h2 onClick={() => setSelectedCategory(item.category)}>
             {item.category}
           </h2>
           {selectedCategory === item.category && (
             <div className={styles.categoryGrid}>
-              {item.products.map((product) => (
-                <div key={product.name}>
-                  <h3>{product.name}</h3>
-                  <img src={product.image} alt={product.name} />
-                  {/* <p>{product.price}</p> */}
-                </div>
-              ))}
+              {item.products.map((product) => product)}
             </div>
           )}
         </div>
