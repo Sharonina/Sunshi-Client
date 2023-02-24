@@ -14,9 +14,13 @@ function InteractiveCategory(props) {
             selectedCategory === item.category && styles.categorySelected
           )}
         >
-          <h2 onClick={() => setSelectedCategory(item.category)}>
-            {item.category}
-          </h2>
+          <div
+            className={styles.categoryBtn}
+            onClick={() => setSelectedCategory(item.category)}
+          >
+            <h2>{item.category}</h2>
+          </div>
+
           {selectedCategory === item.category && (
             <div className={styles.categoryGrid}>
               {item.products.map((product) => product)}

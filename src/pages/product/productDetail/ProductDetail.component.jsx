@@ -10,7 +10,7 @@ function ProductDetail(props) {
       </figure>
       <div>
         <span>{product?.name}</span>
-        <span>{product?.price}</span>
+        <span>{`$ ${product?.price}`}</span>
       </div>
     </div>
   ) : (
