@@ -1,4 +1,4 @@
-import { screen, render } from "../../../test/utils";
+import { screen, render } from "../../../../test/utils";
 import ProductDetail from "./ProductDetail.component";
 
 describe("ProductDetail", () => {
@@ -10,7 +10,7 @@ describe("ProductDetail", () => {
       image: "test",
       type: 1,
     };
-    render(<ProductDetail />);
+    render(<ProductDetail product={product} />);
     expect(screen.getByTestId("product-detail")).toBeDefined();
   });
 });

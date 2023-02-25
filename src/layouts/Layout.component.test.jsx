@@ -1,8 +1,9 @@
-import { screen, render, userEvent } from "@/test/utils";
+import { screen, render, userEvent } from "../../test/utils";
 import Layout from "./Layout.component";
 import { MemoryRouter } from "react-router-dom";
 import { routes } from "@/utils/constants/routes";
-import { waitFor } from "@testing-library/react";
+import { UserContext } from "@/context/UserContext";
+import { UserContextMock } from "../../test/__mocks__/context/UserContextMock";
 
 describe("Layout", () => {
   it("should render the layout", () => {
@@ -48,10 +49,19 @@ describe("Layout", () => {
   });
 
   it("should have isLinkActive class on users button while on users route", () => {
+    const mockedUserContext = {
+      ...UserContextMock,
+      userInfo: {
+        ...UserContextMock.userInfo,
+        admin: true,
+      },
+    };
     render(
-      <MemoryRouter initialEntries={[routes.USERS]}>
-        <Layout />
-      </MemoryRouter>
+      <UserContext.Provider value={mockedUserContext}>
+        <MemoryRouter initialEntries={[routes.USERS]}>
+          <Layout />
+        </MemoryRouter>
+      </UserContext.Provider>
     );
     expect(screen.getByTestId("nav-users").getAttribute("class")).toContain(
       "isLinkActive"
