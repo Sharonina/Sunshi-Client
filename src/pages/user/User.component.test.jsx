@@ -1,4 +1,4 @@
-import { screen, render } from "@/test/utils";
+import { screen, render } from "../../../test/utils";
 import User from "./User.component";
 
 describe("User", () => {

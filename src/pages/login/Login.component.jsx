@@ -5,7 +5,8 @@ import logo from "@/assets/sunshi1.png";
 import { UserContext } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@/utils/constants/routes";
-import { useApi } from "../../hooks/useApi";
+import { useApi } from "@/hooks/useApi/useApi";
+import { isEmail, isEmpty, isPassword } from "@/utils/validations/validations";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -33,17 +34,17 @@ const Login = () => {
     const emailValue = event.target.value;
     setEmail(emailValue);
     setErrors({ ...errors, email: undefined });
+    const isEmailValid = isEmail(emailValue);
+    const isEmailEmpty = isEmpty(emailValue);
 
-    const emailRegex =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailValue) {
+    if (isEmailEmpty) {
       return setErrors({
         ...errors,
         email: "Please enter an email",
       });
     }
 
-    if (!emailValue.match(emailRegex)) {
+    if (!isEmailValid) {
       return setErrors({
         ...errors,
         email: "Enter a valid email: email@domine.ext",
@@ -54,15 +55,17 @@ const Login = () => {
     const passwordValue = event.target.value;
     setPassword(passwordValue);
     setErrors({ ...errors, password: undefined });
+    const isPasswordValid = isPassword(passwordValue);
+    const isPasswordEmpty = isEmpty(passwordValue);
 
-    if (!passwordValue) {
+    if (isPasswordEmpty) {
       return setErrors({
         ...errors,
         password: "Please enter a password",
       });
     }
 
-    if (passwordValue.length < 6) {
+    if (!isPasswordValid) {
       return setErrors({
         ...errors,
         password: "Password must be greater than 6",
@@ -93,6 +96,7 @@ const Login = () => {
           value={email}
           onChange={handleEmailChange}
           placeholder="shadmin@sunshi.com"
+          data-testid="email-input"
         />
         {errors?.email && <p className={styles.errorMessage}>{errors.email}</p>}
         <p>Password</p>
@@ -101,6 +105,7 @@ const Login = () => {
           placeholder="**********"
           type="password"
           value={password}
+          data-testid="password-input"
         />
         {errors?.password && (
           <p className={styles.errorMessage}>{errors.password}</p>
@@ -110,6 +115,7 @@ const Login = () => {
         className={clsx(isSubmitDisabled && styles.isSubmitDisabled)}
         disabled={isSubmitDisabled}
         type="submit"
+        data-testid="submit-button"
       >
         Sign in
       </button>

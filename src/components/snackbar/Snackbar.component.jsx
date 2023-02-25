@@ -11,7 +11,7 @@ const Snackbar = (props) => {
         styles[snackbar.severity],
         isOpen && styles.isOpen
       )}
-      data-testid="snackbar-container"
+      data-testid="snackbar"
     >
       {snackbar.message}
     </div>

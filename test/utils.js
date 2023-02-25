@@ -1,9 +1,23 @@
 /* eslint-disable import/export */
 import { cleanup, render } from "@testing-library/react";
 import { afterEach } from "vitest";
+//import "cross-fetch/polyfill";
+import { server } from "./__mocks__/server";
+import fetch from "cross-fetch";
+
+global.fetch = fetch;
+
+beforeAll(() => {
+  server.listen({ onUnhandledRequest: `warn` });
+});
 
 afterEach(() => {
+  server.resetHandlers();
   cleanup();
+});
+
+afterAll(() => {
+  server.close();
 });
 
 const customRender = (ui, options = {}) =>

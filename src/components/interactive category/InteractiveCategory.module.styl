@@ -1,0 +1,74 @@
+/* .categoriesContainer
+  height: 100%
+  width: 100%
+  display: grid
+  overflow: auto
+  & .categoryContainer
+    border: 1px solid #ffffff
+    border-radius: 5px
+    margin: .2em
+    padding: 0 1em
+    color: #ffffff
+  & .categorySelected
+    border 2px solid #7h245
+    background: #12b3j4
+
+.categoryGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
+  grid-gap: .9rem
+  margin: 1rem 0
+  overflow: auto;
+  max-height: 16rem; */
+.categoriesContainer
+  display: grid
+  //height: 90%
+  & .categoryContainer
+    height: 100%
+    display: grid
+  & .categorySelected
+    height: 100%
+    & .categoryBtn
+      background: var(--orange-light)
+      & h2
+        height: 70%
+  & .categoryBtn
+    height: 100%;
+    display: flex
+    align-items: center
+    //height: 9.6rem;
+    border-radius: 0.7rem;
+    border-bottom: 0.3rem solid var(--principal-gray-dark);
+    border-right: 0.3rem solid var(--principal-gray-dark);
+    border-top: 0.3rem solid var(--principal-gray-light);
+    border-left: 0.3rem solid var(--principal-gray-light);
+    & h2
+      width: 100%
+      height: 28%
+      font-size: 3vw;
+      text-indent: 4rem;
+      font-weight: 500;
+
+.categoryGrid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr))
+  grid-gap: .9rem
+  margin: 1rem 0
+  overflow: auto;
+  max-height: 16rem;
+  & div
+    width: 100%
+    height: 11rem
+    & figure
+      width: 100%;
+      height: 72%;
+      & img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        border-radius: .5rem
+    & h3
+      text-align: center
+      font-weight: 500
+      font-size: 1.4vw
+      margin: 6% 0 12% 0
