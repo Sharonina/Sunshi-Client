@@ -3,7 +3,7 @@ import styles from "./Product.module.styl";
 import { routes } from "@/utils/constants/routes";
 import { useApi } from "@/hooks/useApi/useApi";
 import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
-import ProductDetail from "./productDetail/productDetail.component";
+import ProductDetail from "./productDetail/ProductDetail.component";
 
 const ProductCategories = {
   Food: 1,
