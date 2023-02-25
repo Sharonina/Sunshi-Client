@@ -1,5 +1,5 @@
 import React from "react";
-import { useApi } from "./useApi";
+import { useApi } from "./useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 
 const getTokenFromLocalStorage = () => {
