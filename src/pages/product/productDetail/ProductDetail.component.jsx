@@ -4,7 +4,7 @@ import styles from "./ProductDetail.module.styl";
 function ProductDetail(props) {
   const { product } = props;
   return product ? (
-    <div className={styles.detailContainer}>
+    <div data-testid="product-detail" className={styles.detailContainer}>
       <figure>
         <img src={product?.image} />
       </figure>

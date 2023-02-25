@@ -6,6 +6,6 @@ describe("Snackbar", () => {
   it("should render the snackbar", () => {
     const snackbar = { message: "test", severity: "success" };
     render(<Snackbar isOpen={true} snackbar={snackbar} />);
-    expect(screen.getByTestId("snackbar-page")).toBeDefined();
+    expect(screen.getByTestId("snackbar")).toBeDefined();
   });
 });
