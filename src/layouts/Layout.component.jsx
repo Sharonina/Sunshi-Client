@@ -103,6 +103,7 @@ const Layout = () => {
                   clsx(isActive && styles.isLinkActive)
                 }
                 to={routes.USERS}
+                data-testid="nav-users"
               >
                 Users
               </NavLink>

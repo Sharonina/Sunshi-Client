@@ -1,8 +1,11 @@
 /* eslint-disable import/export */
 import { cleanup, render } from "@testing-library/react";
 import { afterEach } from "vitest";
-import "cross-fetch/polyfill";
+//import "cross-fetch/polyfill";
 import { server } from "./__mocks__/server";
+import fetch from "cross-fetch";
+
+global.fetch = fetch;
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: `warn` });

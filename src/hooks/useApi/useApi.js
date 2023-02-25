@@ -7,7 +7,7 @@ export const useApi = () => {
   const { authorization } = useContext(UserContext);
   const { setShowSnackbar, setSnackbar } = useContext(UtilsContext);
 
-  const getWithAuthorization = async (url, options) => {
+  const getWithAuthorization = async (url, options = {}) => {
     const apiUrl = `${VITE_API_URL}${url}`; //ya incluye slash
     const response = await fetch(apiUrl, {
       headers: {

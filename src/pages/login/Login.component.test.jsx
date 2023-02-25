@@ -22,8 +22,8 @@ describe("Login", () => {
         <Login />
       </MemoryRouter>
     );
-    const emailInput = screen.getTestById("email-input");
-    const passwordInput = screen.getTestById("password-input");
+    const emailInput = screen.getByTestId("email-input");
+    const passwordInput = screen.getByTestId("password-input");
     const submitButton = screen.getByTestId("submit-button");
     expect(submitButton.getAttribute("disabled")).toBeDefined();
     emailInput.setAttribute("value", "shadmin@sunshi.com");

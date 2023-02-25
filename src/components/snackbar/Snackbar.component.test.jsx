@@ -1,4 +1,3 @@
-import { screen, render } from "@/test/utils";
 import Snackbar from "./Snackbar.component";
 import { screen, render } from "../../../test/utils";
 

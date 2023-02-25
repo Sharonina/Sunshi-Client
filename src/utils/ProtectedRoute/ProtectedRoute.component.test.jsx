@@ -1,5 +1,5 @@
 import { screen, render, waitFor } from "../../../test/utils";
-import ProtetedRoute from "./ProtectedRoute.component";
+import ProtectedRoute from "./ProtectedRoute.component";
 import HomeComponent from "@/pages/home/Home.component";
 import { protectionTypes } from "../constants/authentication";
 import LoginComponent from "@/pages/login/Login.component";
@@ -7,11 +7,11 @@ import UserComponent from "@/pages/user/User.component";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { routes } from "../constants/routes";
 
-describe("ProtetedRoute", () => {
-  it("should render the protetedRoute without props", () => {
+describe("ProtectedRoute", () => {
+  it("should render the protectedRoute without props", () => {
     render(
       <MemoryRouter>
-        <ProtetedRoute children={<HomeComponent />} />
+        <ProtectedRoute children={<HomeComponent />} />
       </MemoryRouter>
     );
     expect(screen.getByTestId("home-page")).toBeDefined();
@@ -24,14 +24,14 @@ describe("ProtetedRoute", () => {
           <Route
             path={routes.USERS}
             element={
-              <ProtetedRoute
+              <ProtectedRoute
                 children={<UserComponent />}
                 protections={[protectionTypes.isAdmin]}
                 isAdmin={false}
               />
             }
           />
-          <Route path={routes.HOME} elements={<HomeComponent />} />
+          <Route path={routes.HOME} element={<HomeComponent />} />
         </Routes>
       </MemoryRouter>
     );
@@ -45,14 +45,14 @@ describe("ProtetedRoute", () => {
           <Route
             path={routes.HOME}
             element={
-              <ProtetedRoute
+              <ProtectedRoute
                 children={<HomeComponent />}
                 protections={[protectionTypes.isLogged]}
                 isLogged={false}
               />
             }
           />
-          <Route path={routes.LOGIN} elements={<LoginComponent />} />
+          <Route path={routes.LOGIN} element={<LoginComponent />} />
         </Routes>
       </MemoryRouter>
     );

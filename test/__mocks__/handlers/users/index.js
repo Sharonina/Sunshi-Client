@@ -12,7 +12,7 @@ export const userHandlers = [
     );
   }),
 
-  rest.get(`${VITE_API_URL}/users/login`, (req, res, ctx) => {
+  rest.get(`${VITE_API_URL}/users/me`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
