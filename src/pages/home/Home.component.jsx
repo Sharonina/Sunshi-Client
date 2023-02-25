@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { UserContext } from "@/context/UserContext";
 import sushiImg from "@/assets/nigiri.png";
 import styles from "./Home.module.styl";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 
 const Home = () => {

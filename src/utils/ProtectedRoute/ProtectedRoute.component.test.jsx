@@ -1,4 +1,4 @@
-import { screen, render, waitFor } from "@/test/utils";
+import { screen, render, waitFor } from "../../../test/utils";
 import ProtetedRoute from "./ProtectedRoute.component";
 import HomeComponent from "@/pages/home/Home.component";
 import { protectionTypes } from "../constants/authentication";

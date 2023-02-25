@@ -1,5 +1,6 @@
 import { rest } from "msw";
 const { VITE_API_URL } = import.meta.env;
+
 export const userHandlers = [
   rest.post(`${VITE_API_URL}/users/login`, (req, res, ctx) => {
     return res(

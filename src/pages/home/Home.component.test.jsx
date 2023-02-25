@@ -1,4 +1,4 @@
-import { screen, render } from "@/test/utils";
+import { screen, render } from "../../../test/utils";
 import Home from "./Home.component";
 
 describe("Home", () => {

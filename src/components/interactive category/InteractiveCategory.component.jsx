@@ -5,7 +5,10 @@ import styles from "./InteractiveCategory.module.styl";
 function InteractiveCategory(props) {
   const { categories, selectedCategory, setSelectedCategory } = props;
   return (
-    <div className={styles.categoriesContainer}>
+    <div
+      data-testid="interactive-category"
+      className={styles.categoriesContainer}
+    >
       {categories.map((item) => (
         <div
           key={item.category}
