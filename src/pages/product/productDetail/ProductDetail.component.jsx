@@ -15,7 +15,7 @@ function ProductDetail(props) {
     </div>
   ) : (
     <div className={styles.detailContainer}>
-      <span>Select a product</span>
+      <span className={styles.defaultMessage}>Select a product</span>
     </div>
   );
 }
