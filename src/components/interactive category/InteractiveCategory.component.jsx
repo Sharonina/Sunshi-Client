@@ -9,24 +9,25 @@ function InteractiveCategory(props) {
       data-testid="interactive-category"
       className={styles.categoriesContainer}
     >
-      {categories.map((item) => (
+      {categories.map((categoryObject) => (
         <div
-          key={item.category}
+          key={categoryObject.category}
           className={clsx(
             styles.categoryContainer,
-            selectedCategory === item.category && styles.categorySelected
+            selectedCategory === categoryObject.category &&
+              styles.categorySelected
           )}
         >
           <div
             className={styles.categoryBtn}
-            onClick={() => setSelectedCategory(item.category)}
+            onClick={() => setSelectedCategory(categoryObject.category)}
           >
-            <h2>{item.category}</h2>
+            <h2>{categoryObject.category}</h2>
           </div>
 
-          {selectedCategory === item.category && (
+          {selectedCategory === categoryObject.category && (
             <div className={styles.categoryGrid}>
-              {item.products.map((product) => product)}
+              {categoryObject.items.map((item) => item)}
             </div>
           )}
         </div>

@@ -34,7 +34,7 @@ const Products = () => {
     ));
     return {
       category: item.category,
-      products,
+      items: products,
     };
   });
 
