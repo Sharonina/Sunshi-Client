@@ -24,12 +24,16 @@ const Order = () => {
 
   const orderItems = ordersByCategory.map((item) => {
     const orders = item.orders.map((order) => (
-      <div key={order.client} onClick={() => setSelectedOrder(order)}>
-        <div>
+      <div
+        className={styles.orderItem}
+        key={order.client}
+        onClick={() => setSelectedOrder(order)}
+      >
+        <div className={styles.orderStatus}>
           <p>{order.status}</p>
         </div>
-        <p>{order.table}</p>
-        <p>{order.client}</p>
+        <p className={styles.orderTable}>{order.table}</p>
+        <p className={styles.orderClient}>{order.client}</p>
       </div>
     ));
     return {
