@@ -3,6 +3,7 @@ import styles from "./Order.module.styl";
 import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
+import OrderDetail from "./orderDetail/OrderDetail.component";
 
 const OrderStatus = {
   Pending: 1,
@@ -68,9 +69,9 @@ const Order = () => {
           setSelectedCategory={handleSelectedCategory}
         />
       </section>
-      {/* <section className="right">
-        <ProductDetail product={selectedProduct} />
-      </section> */}
+      <section className="right">
+        <OrderDetail order={selectedOrder} />
+      </section>
     </div>
   );
 };
