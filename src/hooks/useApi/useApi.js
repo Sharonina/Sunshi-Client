@@ -13,7 +13,7 @@ export const useApi = () => {
       headers: {
         Authorization: authorization.token,
       },
-      ...options,
+      ...options, //opciones que queremos añadir al request (headers, content, etc)
     });
     const data = await response.json();
     return data;
