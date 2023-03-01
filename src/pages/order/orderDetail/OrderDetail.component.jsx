@@ -15,17 +15,17 @@ function OrderDetail(props) {
           <button>close</button>
         </div>
       </div>
-      <div>
+      <div className={styles.orderClientInfo}>
         <div>
           <p>Customer name:</p>
-          <p>{order?.client}</p>
+          <p className={styles.clientInfo}>{order?.client}</p>
         </div>
         <div>
           <p>Table:</p>
-          <p>{order?.table}</p>
+          <p className={styles.clientInfo}>{order?.table}</p>
         </div>
       </div>
-      <div>
+      <div className={styles.orderItems}>
         <p>Order:</p>
         <ul>
           {order?.products.map((product) => {
@@ -33,13 +33,13 @@ function OrderDetail(props) {
             return (
               <li key={product._id}>
                 <div>
-                  <span>{product.name}</span>
-                  <span>
+                  <p className={styles.productName}>{product.name}</p>
+                  <p className={styles.productXQuantity}>
                     {product.quantity} x {product.price}
-                  </span>
+                  </p>
                 </div>
-                <span>{product.quantity}</span>
-                <span>$ {totalPrice}</span>
+                <span className={styles.quantity}>{product.quantity}</span>
+                <span className={styles.productTotal}>$ {totalPrice}</span>
               </li>
             );
           })}
