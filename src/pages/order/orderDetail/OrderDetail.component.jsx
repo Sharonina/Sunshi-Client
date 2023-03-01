@@ -45,6 +45,12 @@ function OrderDetail(props) {
           })}
         </ul>
       </div>
+      <div className={styles.statusBarContainer}>
+        <p>status bar here</p>
+      </div>
+      <div className={styles.changeStatusBtn}>
+        <button>Cancel order</button>
+      </div>
     </div>
   ) : (
     <div className={styles.orderDetailContainer}>
