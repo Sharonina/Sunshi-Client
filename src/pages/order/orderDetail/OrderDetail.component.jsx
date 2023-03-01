@@ -4,18 +4,18 @@ import styles from "./OrderDetail.module.styl";
 function OrderDetail(props) {
   const { order } = props;
   return order ? (
-    <div data-testid="order-detail" className={styles.detailContainer}>
-      <section>
-        <div>
+    <div data-testid="order-detail" className={styles.orderSelectedContainer}>
+      <div className={styles.orderHeader}>
+        <div className={styles.status}>
           <div></div>
           <p>{order?.status}</p>
         </div>
-        <div>
+        <div className={styles.optionButtons}>
           <button>edit</button>
           <button>close</button>
         </div>
-      </section>
-      <section>
+      </div>
+      <div>
         <div>
           <p>Customer name:</p>
           <p>{order?.client}</p>
@@ -24,8 +24,8 @@ function OrderDetail(props) {
           <p>Table:</p>
           <p>{order?.table}</p>
         </div>
-      </section>
-      <section>
+      </div>
+      <div>
         <p>Order:</p>
         <ul>
           {order?.products.map((product) => {
@@ -44,12 +44,14 @@ function OrderDetail(props) {
             );
           })}
         </ul>
-      </section>
+      </div>
     </div>
   ) : (
-    <div className={styles.detailContainer}>
-      <button>+</button>
-      <p>Create new order</p>
+    <div className={styles.orderDetailContainer}>
+      <button className={styles.rightNewOrder}>+</button>
+      <p className={styles.rightMessage}>
+        Create new order or Select one to see details
+      </p>
     </div>
   );
 }
