@@ -10,7 +10,7 @@ import { UtilsContext } from "@/context/UtilsContext";
 const Layout = () => {
   const { userInfo, handleLogout } = useContext(UserContext);
   const { setShowSnackbar, setSnackbar } = useContext(UtilsContext);
-  const isAdmin = userInfo.admin;
+  const isAdmin = userInfo?.admin;
   const today = new Date();
 
   const [openMenu, setOpenMenu] = React.useState(false);
