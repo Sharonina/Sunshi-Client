@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Order.module.styl";
 import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
 import OrderDetail from "./orderDetail/OrderDetail.component";
+import { Usercontext } from "@/context/UserContext";
+import OrderProducts from "./orderProducts/OrderProducts.component";
+import EditOrder from "./editOrder/EditOrder.component";
 
 const OrderStatus = {
   Pending: 1,
@@ -16,11 +19,32 @@ const Order = () => {
   const [ordersByCategory, setOrdersByCategory] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState(undefined);
   const [selectedOrder, setSelectedOrder] = React.useState(undefined);
+  const [editMode, setEditMode] = React.useState(false);
+  const [orderProducts, setOrderProducts] = React.useState([]);
+
   const { getWithAuthorization } = useApi();
 
   function handleSelectedCategory(category) {
     if (selectedCategory === category) return setSelectedCategory(undefined);
     return setSelectedCategory(category);
+  }
+
+  function handleSetOrderProducts(product) {
+    const productIndex = orderProducts.findIndex(
+      (orderProduct) => orderProduct._id === product._id
+    );
+
+    if (productIndex === -1) {
+      return setOrderProducts([...orderProducts, { ...product, quantity: 1 }]);
+    }
+    const newOrderProducts = orderProducts.map((orderProduct) => {
+      if (orderProduct._id === product._id) {
+        return { ...orderProduct, quantity: (orderProduct.quantity || 0) + 1 };
+      }
+      return orderProduct;
+    });
+
+    setOrderProducts(newOrderProducts);
   }
 
   const orderItems = ordersByCategory.map((item) => {
@@ -63,14 +87,29 @@ const Order = () => {
   return (
     <div data-testid="order-page" className={styles.orders}>
       <section className="left">
-        <InteractiveCategory
-          categories={orderItems}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={handleSelectedCategory}
-        />
+        {editMode ? (
+          <OrderProducts setOrderProducts={handleSetOrderProducts} />
+        ) : (
+          <InteractiveCategory
+            categories={orderItems}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={handleSelectedCategory}
+          />
+        )}
       </section>
       <section className="right">
-        <OrderDetail order={selectedOrder} />
+        {editMode ? (
+          <EditOrder
+            orderProducts={orderProducts}
+            setOrderProducts={handleSetOrderProducts}
+          />
+        ) : (
+          <OrderDetail
+            order={selectedOrder}
+            userRole={role}
+            setEditMode={setEditMode}
+          />
+        )}
       </section>
     </div>
   );
