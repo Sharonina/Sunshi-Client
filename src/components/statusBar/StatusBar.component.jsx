@@ -17,7 +17,10 @@ function StatusBar(props) {
       >
         <div className={styles.stepCircle} />
         <div
-          className={clsx(styles.stepTitle, current === step && styles.active)}
+          className={clsx(
+            styles.stepTitle,
+            currentStep === step && styles.active
+          )}
         >
           {step}
         </div>
