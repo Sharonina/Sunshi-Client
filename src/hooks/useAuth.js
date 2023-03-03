@@ -2,6 +2,19 @@ import React from "react";
 import { useApi } from "./useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 
+const initialUser = {
+  _id: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  role: "",
+  admin: false,
+  restaurant: {
+    id: "",
+    name: "",
+  },
+};
+
 const getTokenFromLocalStorage = () => {
   const authorization = localStorage.getItem("token");
   const { token, expireDate } = JSON.parse(authorization || "{}");
@@ -24,12 +37,12 @@ export const useAuth = () => {
     getTokenFromLocalStorage()
   );
 
-  const [userInfo, setUserInfo] = React.useState({});
+  const [userInfo, setUserInfo] = React.useState(initialUser);
   const { getWithAuthorization } = useApi();
 
   const handleLogout = () => {
     setAuthorization({ token: "", expireDate: "" });
-    setUserInfo({});
+    setUserInfo(initialUser);
   };
 
   React.useEffect(() => {

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./OrderDetail.module.styl";
+import StatusBarComponent from "@/components/statusBar/StatusBar.component";
 
 function OrderDetail(props) {
   const { order } = props;
@@ -46,7 +47,10 @@ function OrderDetail(props) {
         </ul>
       </div>
       <div className={styles.statusBarContainer}>
-        <p>status bar here</p>
+        <StatusBarComponent
+          steps={["Pending", "Delivering", "Delivered"]}
+          currentStep={order?.status}
+        />
       </div>
       <div className={styles.changeStatusBtn}>
         <button>Cancel order</button>
