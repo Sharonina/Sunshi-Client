@@ -1,9 +1,41 @@
 import React from "react";
 import styles from "./OrderDetail.module.styl";
 import StatusBarComponent from "@/components/statusBar/StatusBar.component";
+import Button from "@/components/button/Button.component";
+import { userRoles } from "@/utils/constants/authentication";
+import { orderStatuses } from "@/utils/constants/orders";
 
 function OrderDetail(props) {
-  const { order } = props;
+  const { order, userRole, setEditMode } = props;
+
+  const OrderButton = () => {
+    if (order?.status === orderStatuses.PENDING) {
+      if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
+        return (
+          <Button type="cancel" size="xl" isHovereable={true}>
+            Cancel
+          </Button>
+        );
+      } else if (userRole === userRoles.CHEF) {
+        return (
+          <Button type="primary size" size="xl" isHovereable={true}>
+            Ready to deliver
+          </Button>
+        );
+      }
+    }
+    if (order?.status === orderStatuses.DELIVERING) {
+      if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
+        return (
+          <Button type="primary" size="xl" isHovereable={true}>
+            Deliver to table
+          </Button>
+        );
+      }
+    }
+    return null;
+  };
+
   return order ? (
     <div data-testid="order-detail" className={styles.orderSelectedContainer}>
       <div className={styles.orderHeader}>
@@ -11,10 +43,13 @@ function OrderDetail(props) {
           <div></div>
           <p>{order?.status}</p>
         </div>
-        <div className={styles.optionButtons}>
-          <button>edit</button>
-          <button>close</button>
-        </div>
+        {(userRole === userRoles.WAITER || userRole === userRoles.ADMIN) &&
+          order?.status === orderStatuses.PENDING && (
+            <div className={styles.optionButtons}>
+              <button>edit</button>
+              <button>close</button>
+            </div>
+          )}
       </div>
       <div className={styles.orderClientInfo}>
         <div>
@@ -53,12 +88,21 @@ function OrderDetail(props) {
         />
       </div>
       <div className={styles.changeStatusBtn}>
-        <button>Cancel order</button>
+        <OrderButton />
+        {/* <button>Cancel order</button> */}
       </div>
     </div>
   ) : (
     <div className={styles.orderDetailContainer}>
-      <button className={styles.rightNewOrder}>+</button>
+      {/* <button className={styles.rightNewOrder}>+</button> */}
+      <Button
+        type="primary"
+        size="xl"
+        isHovereable={true}
+        onClick={() => setEditMode(true)}
+      >
+        +
+      </Button>
       <p className={styles.rightMessage}>
         Create new order or Select one to see details
       </p>
