@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styles from "./Order.module.styl";
 import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
-import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
+import InteractiveCategory from "@/components/interactiveCategory/InteractiveCategory.component";
 import OrderDetail from "./orderDetail/OrderDetail.component";
 import { Usercontext } from "@/context/UserContext";
 import OrderProducts from "./orderProducts/OrderProducts.component";

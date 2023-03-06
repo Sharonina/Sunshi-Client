@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Product.module.styl";
 import { routes } from "@/utils/constants/routes";
 import { useApi } from "@/hooks/useApi/useApi";
-import InteractiveCategory from "@/components/interactive category/InteractiveCategory.component";
+import InteractiveCategory from "@/components/interactiveCategory/InteractiveCategory.component";
 import ProductDetail from "./productDetail/ProductDetail.component";
 
 const ProductCategories = {
