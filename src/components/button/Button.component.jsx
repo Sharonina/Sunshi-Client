@@ -3,15 +3,22 @@ import styles from "./Button.module.styl";
 import clsx from "clsx";
 
 const Button = (props) => {
-  const { children, type = "primary", isHovereable = false } = props;
+  const {
+    children,
+    onClick,
+    type = "primary",
+    isHovereable = false,
+    size,
+  } = props;
   return (
     <button
       className={clsx(
         styles.button,
         styles[type],
-        isHovereable && styles.hovereable
+        isHovereable && styles.hovereable,
+        size && styles[size]
       )}
-      //onClick={onClick}
+      onClick={onClick}
       data-testid="button"
     >
       {children}

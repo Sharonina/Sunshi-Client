@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./Product.module.styl";
-import { routes } from "@/utils/constants/routes";
-import { useApi } from "@/hooks/useApi/useApi";
 import InteractiveCategory from "@/components/interactiveCategory/InteractiveCategory.component";
-import ProductDetail from "./productDetail/ProductDetail.component";
+import { routes } from "@/utils/constants/routes";
+import React from "react";
+import styles from "./OrderProducts.module.styl";
+import { useApi } from "@/hooks/useApi/useApi";
+import Button from "@/components/button/Button.component";
 
 const ProductCategories = {
   Food: 1,
@@ -12,7 +12,8 @@ const ProductCategories = {
   Sides: 4,
 };
 
-const Products = () => {
+function OrderProducts(props) {
+  const { setOrderProducts } = props;
   const [productsByCategory, setProductsByCategory] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState(undefined);
   const [selectedProduct, setSelectedProduct] = React.useState(undefined);
@@ -30,6 +31,15 @@ const Products = () => {
         <figure>
           <img src={product.image} alt={product.name} />
         </figure>
+        <div className={styles.addButton}>
+          <Button
+            type="primary"
+            size="xl"
+            onClick={() => setOrderProducts(product, "add")}
+          >
+            + Add to order
+          </Button>
+        </div>
       </div>
     ));
     return {
@@ -56,19 +66,12 @@ const Products = () => {
   }, []);
 
   return (
-    <div data-testid="product-page" className={styles.products}>
-      <section className="left">
-        <InteractiveCategory
-          categories={productItems}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={handleSelectedCategory}
-        />
-      </section>
-      <section className="right">
-        <ProductDetail product={selectedProduct} />
-      </section>
-    </div>
+    <InteractiveCategory
+      categories={productItems}
+      selectedCategory={selectedCategory}
+      setSelectedCategory={handleSelectedCategory}
+    />
   );
-};
+}
 
-export default Products;
+export default OrderProducts;
