@@ -128,6 +128,7 @@ const Order = () => {
             setSelectedCategory={setSelectedOrder}
             selectedOrder={selectedOrder}
             cleanOrderProducts={cleanOrderProducts}
+            setSelectedOrder={setSelectedOrder}
           />
         ) : (
           <OrderDetail

@@ -5,7 +5,7 @@ import clsx from "clsx";
 const Button = (props) => {
   const {
     children,
-    OnClick,
+    onClick,
     type = "primary",
     isHovereable = false,
     size,
@@ -18,7 +18,7 @@ const Button = (props) => {
         isHovereable && styles.hovereable,
         size && styles[size]
       )}
-      onClick={OnClick}
+      onClick={onClick}
       data-testid="button"
     >
       {children}

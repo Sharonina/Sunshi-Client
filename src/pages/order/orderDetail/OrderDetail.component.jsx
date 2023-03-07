@@ -13,7 +13,7 @@ function OrderDetail(props) {
   };
 
   const OrderButton = () => {
-    if (order?.status === orderStatuses.PENDING) {
+    if (order?.status.toLowerCase() === orderStatuses.PENDING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
           <Button type="cancel" size="xl" isHovereable={true}>
@@ -28,7 +28,7 @@ function OrderDetail(props) {
         );
       }
     }
-    if (order?.status === orderStatuses.DELIVERING) {
+    if (order?.status.toLowerCase() === orderStatuses.DELIVERING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
           <Button type="primary" size="xl" isHovereable={true}>
@@ -48,7 +48,7 @@ function OrderDetail(props) {
           <p>{order?.status}</p>
         </div>
         {(userRole === userRoles.WAITER || userRole === userRoles.ADMIN) &&
-          order?.status === orderStatuses.PENDING && (
+          order?.status.toLowerCase() === orderStatuses.PENDING && (
             <div className={styles.optionButtons}>
               <Button
                 type="primary"

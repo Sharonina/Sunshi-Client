@@ -14,13 +14,13 @@ function EditOrder(props) {
     selectedOrder,
     cleanOrderProducts,
   } = props;
-  const { client, setClient } = React.useState("");
-  const { table, setTable } = React.useState("");
+  const [client, setClient] = React.useState(selectedOrder?.client || "");
+  const [table, setTable] = React.useState(selectedOrder?.table || "");
   const { postWithAuthorization, putWithAuthorization } = useApi();
-  const { setSnackbar, setShowSnackBar } = useContext(UtilsContext);
+  const { setSnackbar, setShowSnackbar } = useContext(UtilsContext);
   const editOrCreate = selectedOrder ? "Edit" : "Create";
 
-  const getTotalPrice = async () => {
+  const getTotalPrice = () => {
     return orderProducts.reduce(
       (total, product) => total + product.price * (product.quantity || 1),
       0
@@ -28,7 +28,7 @@ function EditOrder(props) {
   };
 
   const handleCreateOrder = async () => {
-    const orderProductsInBackendFormat = orderProducts.flatMao((product) => {
+    const orderProductsInBackendFormat = orderProducts.flatMap((product) => {
       const productArray = [];
       for (let i = 0; i < (product?.quantity || 1); i++) {
         productArray.push(product._id);
@@ -46,7 +46,7 @@ function EditOrder(props) {
       editOrCreate === "Create"
         ? await postWithAuthorization(routes.ORDERS, orderBody)
         : await putWithAuthorization(
-            `${routes.Orders}/${selectedOrder?._id}`,
+            `${routes.ORDERS}/${selectedOrder?._id}`,
             orderBody
           );
 
@@ -55,20 +55,11 @@ function EditOrder(props) {
         message: `Order ${editOrCreate.toLocaleLowerCase()} successfully`,
         severity: "success",
       });
-      setShowSnackBar(true);
+      setShowSnackbar(true);
       setEditMode(false);
       setSelectedOrder(result[0]);
       cleanOrderProducts();
     }
-  };
-
-  const handleChangeQuantity = (product, action) => {
-    const newQuantity =
-      action === "add"
-        ? (product?.quantity || 1) + 1
-        : (product?.quantity || 1) - 1;
-    const newProduct = { ...product, quantity: newQuantity };
-    setOrderProducts(newProduct);
   };
 
   return (

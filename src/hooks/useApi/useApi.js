@@ -68,12 +68,13 @@ export const useApi = () => {
     }
   };
 
-  const putWithAuthorization = async () => {
+  const putWithAuthorization = async (url, body, options) => {
     try {
       const apiUrl = `${VITE_API_URL}${url}`;
       const response = await fetch(apiUrl, {
         method: "PUT",
         headers: {
+          Authorization: authorization.token,
           "Content-Type": "application/json", //saber de que tipo viene el body
         },
         body: JSON.stringify(body),
