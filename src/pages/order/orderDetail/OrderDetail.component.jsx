@@ -4,25 +4,58 @@ import StatusBarComponent from "@/components/statusBar/StatusBar.component";
 import Button from "@/components/button/Button.component";
 import { userRoles } from "@/utils/constants/authentication";
 import { orderStatuses } from "@/utils/constants/orders";
+import { useApi } from "@/hooks/useAPi/useApi";
+import { routes } from "@/utils/constants/routes";
 
 function OrderDetail(props) {
-  const { order, userRole, setEditMode } = props;
+  const { order, userRole, setEditMode, setSelectedOrder } = props;
+  const { putWithAuthorization } = useApi();
 
-  const handleEditOrder = () => {
+  function handleEditOrder() {
     setEditMode(true);
-  };
+  }
+
+  function handleDeselectedOrder() {
+    setSelectedOrder(undefined);
+  }
+
+  function getTimeToPrepare() {
+    const entryTime = new Date(order?.date_entry || "");
+    const processedTime = new Date(order?.date_processed || "");
+    const timeToPrepare = processedTime.getTime() - entryTime.getTime();
+    const timeToPrepareInMinutes = timeToPrepare / 1000 / 60;
+    return timeToPrepareInMinutes;
+  }
+
+  async function changeOrderStatus(status) {
+    const api = `${routes.ORDERS}/${order?._id}/status`;
+    const result = await putWithAuthorization(api, { status });
+    if (result) {
+      setSelectedOrder(result[0]);
+    }
+  }
 
   const OrderButton = () => {
     if (order?.status.toLowerCase() === orderStatuses.PENDING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
-          <Button type="cancel" size="xl" isHovereable={true}>
+          <Button
+            type="cancel"
+            size="xl"
+            isHovereable={true}
+            onClick={() => changeOrderStatus("Canceled")}
+          >
             Cancel
           </Button>
         );
       } else if (userRole === userRoles.CHEF) {
         return (
-          <Button type="primary size" size="xl" isHovereable={true}>
+          <Button
+            type="primary size"
+            size="xl"
+            isHovereable={true}
+            onClick={() => changeOrderStatus("Delivering")}
+          >
             Ready to deliver
           </Button>
         );
@@ -31,7 +64,12 @@ function OrderDetail(props) {
     if (order?.status.toLowerCase() === orderStatuses.DELIVERING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
-          <Button type="primary" size="xl" isHovereable={true}>
+          <Button
+            type="primary"
+            size="xl"
+            isHovereable={true}
+            onClick={() => changeOrderStatus("Delivered")}
+          >
             Deliver to table
           </Button>
         );
@@ -50,17 +88,20 @@ function OrderDetail(props) {
         {(userRole === userRoles.WAITER || userRole === userRoles.ADMIN) &&
           order?.status.toLowerCase() === orderStatuses.PENDING && (
             <div className={styles.optionButtons}>
-              <Button
-                type="primary"
-                size="md"
-                isHovereable={true}
-                onClick={handleEditOrder}
-              >
-                edit
-              </Button>
-              <button>close</button>
+              <button
+                onClick={() => handleEditOrder()}
+                className={styles.editButton}
+              ></button>
+              <button
+                onClick={() => changeOrderStatus("Canceled")}
+                className={styles.deleteButton}
+              ></button>
             </div>
           )}
+        <button
+          onClick={() => handleDeselectedOrder()}
+          className={styles.closeButton}
+        ></button>
       </div>
       <div className={styles.orderClientInfo}>
         <div>
@@ -100,6 +141,12 @@ function OrderDetail(props) {
       </div>
       <div className={styles.changeStatusBtn}>
         <OrderButton />
+        {order?.status.toLowerCase() === orderStatuses.DELIVERED && (
+          <span>
+            Processed order in: {getTimeToPrepare().toFixed(0)} minutes
+          </span>
+        )}
+
         {/* <button>Cancel order</button> */}
       </div>
     </div>

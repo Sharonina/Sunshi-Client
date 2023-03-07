@@ -62,10 +62,23 @@
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
+      & .deleteButton
+        background: url("@/assets/deleteIcon.png") no-repeat
+        background-size: 70%;
+        background-position: center
+      & .editButton
+        background: url("@/assets/editIcon.png") no-repeat
+        background-size: 70%;
+        background-position: center
+      & .closeButton
+        background: url("@/assets/closeIcon.png") no-repeat
+        background-size: 60%;
+        background-position: center
       & button
+        cursor: pointer
         margin-top: 1rem
-        width: 2rem;
-        height: 2rem;
+        width: 1.6rem;
+        height: 1.6rem;
         color: var(--gray-light)
         background: none
         border: none;

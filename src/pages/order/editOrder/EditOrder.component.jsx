@@ -20,14 +20,14 @@ function EditOrder(props) {
   const { setSnackbar, setShowSnackbar } = useContext(UtilsContext);
   const editOrCreate = selectedOrder ? "Edit" : "Create";
 
-  const getTotalPrice = () => {
+  function getTotalPrice() {
     return orderProducts.reduce(
       (total, product) => total + product.price * (product.quantity || 1),
       0
     );
-  };
+  }
 
-  const handleCreateOrder = async () => {
+  async function handleCreateOrder() {
     const orderProductsInBackendFormat = orderProducts.flatMap((product) => {
       const productArray = [];
       for (let i = 0; i < (product?.quantity || 1); i++) {
@@ -60,14 +60,23 @@ function EditOrder(props) {
       setSelectedOrder(result[0]);
       cleanOrderProducts();
     }
-  };
+  }
+
+  function handleCancelEdit() {
+    setEditMode(false);
+  }
 
   return (
     <div data-testid="order-detail" className={styles.detailContainer}>
       <div className={styles.detailStatus}>
         <h2>New Order</h2>
         <div className={styles.orderTools}>
-          <Button type="primary" size="md" isHovereable={true}>
+          <Button
+            type="primary"
+            size="md"
+            isHovereable={true}
+            onClick={handleCancelEdit}
+          >
             Cancel
           </Button>
         </div>
@@ -107,6 +116,9 @@ function EditOrder(props) {
                 </Button>
               </div>
               <span>$ {product.price * (product.quantity || 1)}</span>
+              <button onClick={() => setOrderProducts(product, "deleteItem")}>
+                x
+              </button>
             </li>
           ))}
         </ul>
