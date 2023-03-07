@@ -4,7 +4,7 @@ import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 import InteractiveCategory from "@/components/interactiveCategory/InteractiveCategory.component";
 import OrderDetail from "./orderDetail/OrderDetail.component";
-import { Usercontext } from "@/context/UserContext";
+import { UserContext } from "@/context/UserContext";
 import OrderProducts from "./orderProducts/OrderProducts.component";
 import EditOrder from "./editOrder/EditOrder.component";
 
@@ -23,13 +23,16 @@ const Order = () => {
   const [orderProducts, setOrderProducts] = React.useState([]);
 
   const { getWithAuthorization } = useApi();
+  const {
+    userInfo: { admin, role },
+  } = useContext(UserContext);
 
   function handleSelectedCategory(category) {
     if (selectedCategory === category) return setSelectedCategory(undefined);
     return setSelectedCategory(category);
   }
 
-  function handleSetOrderProducts(product) {
+  function handleSetOrderProducts(product, action) {
     const productIndex = orderProducts.findIndex(
       (orderProduct) => orderProduct._id === product._id
     );
@@ -39,13 +42,28 @@ const Order = () => {
     }
     const newOrderProducts = orderProducts.map((orderProduct) => {
       if (orderProduct._id === product._id) {
-        return { ...orderProduct, quantity: (orderProduct.quantity || 0) + 1 };
+        const quantity =
+          action === "add"
+            ? (orderProduct?.quantity || 1) + 1
+            : (orderProduct?.quantity || 1) - 1;
+
+        if (quantity === 0) return null;
+        return {
+          ...orderProduct,
+          quantity,
+        };
       }
       return orderProduct;
     });
-
-    setOrderProducts(newOrderProducts);
+    const filteredOrderProducts = newOrderProducts.filter(
+      (productItem) => productItem !== null
+    );
+    setOrderProducts(filteredOrderProducts);
   }
+
+  const cleanOrderProducts = () => {
+    setOrderProducts([]);
+  };
 
   const orderItems = ordersByCategory.map((item) => {
     const orders = item.orders.map((order) => (
@@ -68,21 +86,25 @@ const Order = () => {
   });
 
   React.useEffect(() => {
-    const getOrders = async () => {
-      const orders = await getWithAuthorization(
-        `${routes.ORDERS}?byCategory=true`
-      );
+    if (editMode === false) {
+      const getOrdersByCategory = async () => {
+        const orders = await getWithAuthorization(
+          `${routes.ORDERS}?byCategory=true`
+        );
 
-      // Sort categories by priority
-      orders.sort((a, b) => {
-        const aIndex = OrderStatus[a.category];
-        const bIndex = OrderStatus[b.category];
-        return aIndex - bIndex;
-      });
-      setOrdersByCategory(orders);
-    };
-    getOrders();
-  }, []);
+        // Sort categories by priority
+        orders.sort((a, b) => {
+          const aIndex = OrderStatus[a.category];
+          const bIndex = OrderStatus[b.category];
+          return aIndex - bIndex;
+        });
+        setOrdersByCategory(orders);
+      };
+      getOrdersByCategory();
+    } else {
+      setOrderProducts(selectedOrder?.products || []);
+    }
+  }, [editMode]);
 
   return (
     <div data-testid="order-page" className={styles.orders}>
@@ -102,6 +124,10 @@ const Order = () => {
           <EditOrder
             orderProducts={orderProducts}
             setOrderProducts={handleSetOrderProducts}
+            setEditMode={setEditMode}
+            setSelectedCategory={setSelectedOrder}
+            selectedOrder={selectedOrder}
+            cleanOrderProducts={cleanOrderProducts}
           />
         ) : (
           <OrderDetail

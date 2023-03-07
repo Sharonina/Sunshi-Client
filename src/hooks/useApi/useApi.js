@@ -44,18 +44,58 @@ export const useApi = () => {
   };
 
   const postWithAuthorization = async (url, body, options) => {
-    const apiUrl = `${VITE_API_URL}${url}`;
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        Authorization: authorization.token,
-        "Content-Type": "application/json", //saber de que tipo viene el body
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    return data;
+    try {
+      const apiUrl = `${VITE_API_URL}${url}`;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: authorization.token,
+          "Content-Type": "application/json", //saber de que tipo viene el body
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+      return data;
+    } catch (err) {
+      setSnackbar({
+        message: err.message,
+        severity: "error",
+      });
+      setShowSnackbar(true);
+    }
   };
 
-  return { getWithAuthorization, postWithoutAuthorization };
+  const putWithAuthorization = async () => {
+    try {
+      const apiUrl = `${VITE_API_URL}${url}`;
+      const response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json", //saber de que tipo viene el body
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+      return data;
+    } catch (error) {
+      setSnackbar({
+        message: error.message,
+        severity: "error",
+      });
+      setShowSnackbar(true);
+    }
+  };
+
+  return {
+    getWithAuthorization,
+    postWithoutAuthorization,
+    postWithAuthorization,
+    putWithAuthorization,
+  };
 };

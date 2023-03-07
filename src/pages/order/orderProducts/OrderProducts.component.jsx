@@ -1,10 +1,5 @@
 import InteractiveCategory from "@/components/interactiveCategory/InteractiveCategory.component";
-import {
-  Product,
-  ProductCategoriesPriority,
-  ProductsCategory,
-} from "@/pages/product/Product.component";
-import { routes } from "@/utils/component/routes";
+import { routes } from "@/utils/constants/routes";
 import React from "react";
 import styles from "./OrderProducts.module.styl";
 import { useApi } from "@/hooks/useApi/useApi";
@@ -40,7 +35,7 @@ function OrderProducts(props) {
           <Button
             type="primary"
             size="xl"
-            onClick={() => setOrderProducts(product)}
+            onClick={() => setOrderProducts(product, "add")}
           >
             + Add to order
           </Button>
