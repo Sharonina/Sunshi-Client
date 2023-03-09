@@ -119,6 +119,7 @@ const Order = () => {
             categories={orderItems}
             selectedCategory={selectedCategory}
             setSelectedCategory={handleSelectedCategory}
+            categoryBtnColor="orders"
           />
         )}
       </section>

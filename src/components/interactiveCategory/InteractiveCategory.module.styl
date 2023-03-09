@@ -32,7 +32,14 @@
       background: var(--orange-light)
       & h2
         height: 70%
+  & .products
+    & .categoryBtn
+      background: var(--orange-light)
+  & .orders
+    & .categoryBtn
+      background: var(--pink)
   & .categoryBtn
+    cursor: pointer
     height: 100%;
     display: flex
     align-items: center
@@ -59,10 +66,10 @@
   padding: 0 3%
   & div
     width: 100%
-    height: 11rem
+    height: 14rem
     & figure
       width: 100%;
-      height: 72%;
+      height: 60%; //quiero que sea de 75% cuando sea solo en vista de productos
       & img
         width: 100%
         height: 100%

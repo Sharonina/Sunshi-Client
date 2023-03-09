@@ -31,15 +31,14 @@ function OrderProducts(props) {
         <figure>
           <img src={product.image} alt={product.name} />
         </figure>
-        <div className={styles.addButton}>
-          <Button
-            type="primary"
-            size="xl"
-            onClick={() => setOrderProducts(product, "add")}
-          >
-            + Add to order
-          </Button>
-        </div>
+        <Button
+          type="primary"
+          size="xl"
+          onClick={() => setOrderProducts(product, "add")}
+          className={styles.addButton}
+        >
+          + Add to order
+        </Button>
       </div>
     ));
     return {

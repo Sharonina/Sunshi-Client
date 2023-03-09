@@ -133,6 +133,9 @@ function OrderDetail(props) {
           })}
         </ul>
       </div>
+      <div className={styles.totalOrder}>
+        <span>Total: </span>
+      </div>
       <div className={styles.statusBarContainer}>
         <StatusBarComponent
           steps={["Pending", "Delivering", "Delivered"]}
