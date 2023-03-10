@@ -169,9 +169,13 @@ function OrderDetail(props) {
       >
         +
       </Button> */}
-      <p className={styles.rightMessage}>
-        Create new order or Select one to see details
-      </p>
+      <button
+        onClick={() => setEditMode(true)}
+        className={styles.createMessage}
+      >
+        Create new order
+      </button>
+      <p className={styles.rightMessage}>or select one to see details</p>
     </div>
   );
 }

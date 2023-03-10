@@ -69,16 +69,14 @@ function EditOrder(props) {
   return (
     <div data-testid="order-detail" className={styles.detailContainer}>
       <div className={styles.detailStatus}>
-        <h2>New Order</h2>
+        <h2>Order</h2>
         <div className={styles.orderTools}>
           <Button
             type="primary"
             size="md"
             isHovereable={true}
             onClick={handleCancelEdit}
-          >
-            Cancel
-          </Button>
+          />
         </div>
       </div>
       <div className={styles.detailHeader}>
@@ -96,7 +94,7 @@ function EditOrder(props) {
         />
       </div>
       <div className={styles.detailContent}>
-        <h3>Order:</h3>
+        <h3>Products:</h3>
         <ul>
           {orderProducts.map((product) => (
             <li key={product._id} className={styles.productItem}>
