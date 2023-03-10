@@ -62,6 +62,7 @@ const Products = () => {
           categories={productItems}
           selectedCategory={selectedCategory}
           setSelectedCategory={handleSelectedCategory}
+          categoryBtnColor="products"
         />
       </section>
       <section className="right">

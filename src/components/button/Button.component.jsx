@@ -9,6 +9,7 @@ const Button = (props) => {
     type = "primary",
     isHovereable = false,
     size,
+    className,
   } = props;
   return (
     <button
@@ -16,7 +17,8 @@ const Button = (props) => {
         styles.button,
         styles[type],
         isHovereable && styles.hovereable,
-        size && styles[size]
+        size && styles[size],
+        className && className
       )}
       onClick={onClick}
       data-testid="button"

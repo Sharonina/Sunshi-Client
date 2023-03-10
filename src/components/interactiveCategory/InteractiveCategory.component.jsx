@@ -3,7 +3,12 @@ import clsx from "clsx";
 import styles from "./InteractiveCategory.module.styl";
 
 function InteractiveCategory(props) {
-  const { categories, selectedCategory, setSelectedCategory } = props;
+  const {
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    categoryBtnColor,
+  } = props;
   return (
     <div
       data-testid="interactive-category"
@@ -14,8 +19,10 @@ function InteractiveCategory(props) {
           key={categoryObject.category}
           className={clsx(
             styles.categoryContainer,
-            selectedCategory === categoryObject.category &&
-              styles.categorySelected
+            selectedCategory === categoryObject.category && [
+              styles.categorySelected,
+              styles[categoryBtnColor],
+            ]
           )}
         >
           <div

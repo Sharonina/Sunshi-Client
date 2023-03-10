@@ -32,16 +32,28 @@
       background: var(--orange-light)
       & h2
         height: 70%
+  & .products
+    & .categoryBtn
+      background: var(--orange-light)
+  & .orders
+    & .categoryBtn
+      background: var(--pink)
   & .categoryBtn
+    cursor: pointer
     height: 100%;
     display: flex
     align-items: center
     //height: 9.6rem;
     border-radius: 0.7rem;
-    border-bottom: 0.3rem solid var(--principal-gray-dark);
-    border-right: 0.3rem solid var(--principal-gray-dark);
-    border-top: 0.3rem solid var(--principal-gray-light);
-    border-left: 0.3rem solid var(--principal-gray-light);
+    border-bottom: 0.3rem solid var(--principal-gray-dark)
+    border-right: 0.3rem solid var(--principal-gray-dark)
+    border-top: 0.3rem solid var(--principal-gray-light)
+    border-left: 0.3rem solid var(--principal-gray-light)
+    &:hover
+      border-top: 0.3rem solid var(--principal-gray-dark)
+      border-left: 0.3rem solid var(--principal-gray-dark)
+      border-bottom: 0.3rem solid var(--principal-gray-light)
+      border-right: 0.3rem solid var(--principal-gray-light)
     & h2
       width: 100%
       height: 28%
@@ -59,10 +71,10 @@
   padding: 0 3%
   & div
     width: 100%
-    height: 11rem
+    height: 14rem
     & figure
       width: 100%;
-      height: 72%;
+      height: 60%; //quiero que sea de 75% cuando sea solo en vista de productos
       & img
         width: 100%
         height: 100%

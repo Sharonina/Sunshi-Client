@@ -32,6 +32,12 @@ const Order = () => {
     return setSelectedCategory(category);
   }
 
+  function getQuantity(orderProduct, action) {
+    if (action === "deleteItem") return 0;
+    if (action === "add") return (orderProduct?.quantity || 1) + 1;
+    return (orderProduct?.quantity || 1) - 1;
+  }
+
   function handleSetOrderProducts(product, action) {
     const productIndex = orderProducts.findIndex(
       (orderProduct) => orderProduct._id === product._id
@@ -42,10 +48,7 @@ const Order = () => {
     }
     const newOrderProducts = orderProducts.map((orderProduct) => {
       if (orderProduct._id === product._id) {
-        const quantity =
-          action === "add"
-            ? (orderProduct?.quantity || 1) + 1
-            : (orderProduct?.quantity || 1) - 1;
+        const quantity = getQuantity(orderProduct, action);
 
         if (quantity === 0) return null;
         return {
@@ -104,7 +107,7 @@ const Order = () => {
     } else {
       setOrderProducts(selectedOrder?.products || []);
     }
-  }, [editMode]);
+  }, [editMode, selectedOrder]);
 
   return (
     <div data-testid="order-page" className={styles.orders}>
@@ -116,6 +119,7 @@ const Order = () => {
             categories={orderItems}
             selectedCategory={selectedCategory}
             setSelectedCategory={handleSelectedCategory}
+            categoryBtnColor="orders"
           />
         )}
       </section>
@@ -135,6 +139,7 @@ const Order = () => {
             order={selectedOrder}
             userRole={role}
             setEditMode={setEditMode}
+            setSelectedOrder={setSelectedOrder}
           />
         )}
       </section>

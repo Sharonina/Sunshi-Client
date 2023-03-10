@@ -20,14 +20,14 @@ function EditOrder(props) {
   const { setSnackbar, setShowSnackbar } = useContext(UtilsContext);
   const editOrCreate = selectedOrder ? "Edit" : "Create";
 
-  const getTotalPrice = () => {
+  function getTotalPrice() {
     return orderProducts.reduce(
       (total, product) => total + product.price * (product.quantity || 1),
       0
     );
-  };
+  }
 
-  const handleCreateOrder = async () => {
+  async function handleCreateOrder() {
     const orderProductsInBackendFormat = orderProducts.flatMap((product) => {
       const productArray = [];
       for (let i = 0; i < (product?.quantity || 1); i++) {
@@ -60,44 +60,56 @@ function EditOrder(props) {
       setSelectedOrder(result[0]);
       cleanOrderProducts();
     }
-  };
+  }
+
+  function handleCancelEdit() {
+    setEditMode(false);
+  }
 
   return (
     <div data-testid="order-detail" className={styles.detailContainer}>
       <div className={styles.detailStatus}>
-        <h2>New Order</h2>
+        <h2>Order</h2>
         <div className={styles.orderTools}>
-          <Button type="primary" size="md" isHovereable={true}>
-            Cancel
-          </Button>
+          <Button
+            type="primary"
+            size="md"
+            isHovereable={true}
+            onClick={handleCancelEdit}
+          />
         </div>
       </div>
       <div className={styles.detailHeader}>
-        <span>Customer Name:</span>
-        <input
-          type="text"
-          value={client}
-          onChange={(e) => setClient(e.target.value)}
-        />
-        <span>Table:</span>
-        <input
-          type="text"
-          value={table}
-          onChange={(e) => setTable(Number(e.target.value))}
-        />
+        <div className={styles.client}>
+          <span>Customer Name:</span>
+          <input
+            type="text"
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.table}>
+          <span>Table:</span>
+          <input
+            type="number"
+            value={table}
+            onChange={(e) => setTable(Number(e.target.value))}
+          />
+        </div>
       </div>
       <div className={styles.detailContent}>
-        <h3>Order:</h3>
+        <p>Products:</p>
         <ul>
           {orderProducts.map((product) => (
             <li key={product._id} className={styles.productItem}>
               <div className={styles.productItemDescription}>
-                <span>{product.name}</span>
-                <span>
+                <span className={styles.productName}>{product.name}</span>
+                <span className={styles.productQuantity}>
                   {product.quantity} x {product.price}
                 </span>
               </div>
-              <div>
+              <div className={styles.quantity}>
                 <Button onClick={() => setOrderProducts(product, "remove")}>
                   -
                 </Button>
@@ -107,12 +119,16 @@ function EditOrder(props) {
                 </Button>
               </div>
               <span>$ {product.price * (product.quantity || 1)}</span>
+              <button
+                className={styles.deleteProduct}
+                onClick={() => setOrderProducts(product, "deleteItem")}
+              ></button>
             </li>
           ))}
         </ul>
       </div>
       <div className={styles.detailTotal}>
-        <span>Total: {getTotalPrice()}</span>
+        <span>Total: $ {getTotalPrice()}</span>
       </div>
       <div className={styles.detailBottom}>
         <div className={styles.button}>
