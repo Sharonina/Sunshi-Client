@@ -80,31 +80,36 @@ function EditOrder(props) {
         </div>
       </div>
       <div className={styles.detailHeader}>
-        <span>Customer Name:</span>
-        <input
-          type="text"
-          value={client}
-          onChange={(e) => setClient(e.target.value)}
-        />
-        <span>Table:</span>
-        <input
-          type="text"
-          value={table}
-          onChange={(e) => setTable(Number(e.target.value))}
-        />
+        <div className={styles.client}>
+          <span>Customer Name:</span>
+          <input
+            type="text"
+            value={client}
+            onChange={(e) => setClient(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.table}>
+          <span>Table:</span>
+          <input
+            type="number"
+            value={table}
+            onChange={(e) => setTable(Number(e.target.value))}
+          />
+        </div>
       </div>
       <div className={styles.detailContent}>
-        <h3>Products:</h3>
+        <p>Products:</p>
         <ul>
           {orderProducts.map((product) => (
             <li key={product._id} className={styles.productItem}>
               <div className={styles.productItemDescription}>
-                <span>{product.name}</span>
-                <span>
+                <span className={styles.productName}>{product.name}</span>
+                <span className={styles.productQuantity}>
                   {product.quantity} x {product.price}
                 </span>
               </div>
-              <div>
+              <div className={styles.quantity}>
                 <Button onClick={() => setOrderProducts(product, "remove")}>
                   -
                 </Button>
@@ -114,15 +119,16 @@ function EditOrder(props) {
                 </Button>
               </div>
               <span>$ {product.price * (product.quantity || 1)}</span>
-              <button onClick={() => setOrderProducts(product, "deleteItem")}>
-                x
-              </button>
+              <button
+                className={styles.deleteProduct}
+                onClick={() => setOrderProducts(product, "deleteItem")}
+              ></button>
             </li>
           ))}
         </ul>
       </div>
       <div className={styles.detailTotal}>
-        <span>Total: {getTotalPrice()}</span>
+        <span>Total: $ {getTotalPrice()}</span>
       </div>
       <div className={styles.detailBottom}>
         <div className={styles.button}>

@@ -114,7 +114,7 @@ function OrderDetail(props) {
         </div>
       </div>
       <div className={styles.orderItems}>
-        <p>Order:</p>
+        <p>Products:</p>
         <ul>
           {order?.products?.map((product) => {
             const totalPrice = product.price * product.quantity;
