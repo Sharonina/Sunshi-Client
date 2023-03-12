@@ -1,4 +1,6 @@
-# Sunshi
+![Logo](./src/assets/sunshi2.png)
+
+#
 
 App created for a japanese food restaurant
 
@@ -7,6 +9,15 @@ App created for a japanese food restaurant
 **Client:** React, JavaScript, Stylus, Vitest
 
 **Server:** Node, Express, MongoDB
+
+# Prototypes
+
+## High fidelity
+
+![Login and Home](./src/assets/login-home.png)
+![Orders, products and users menu](./src/assets/menus.png)
+![open menus](./src/assets/open-menus.png)
+![open menus 2](./src/assets/open-menus-2.png)
 
 # Usability Test: Lighthouse
 
