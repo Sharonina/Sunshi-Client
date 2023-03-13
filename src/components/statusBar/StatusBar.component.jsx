@@ -28,7 +28,11 @@ function StatusBar(props) {
     );
   });
 
-  return <div className={styles.statusBar}>{stepList}</div>;
+  return (
+    <div data-testid="status-bar" className={styles.statusBar}>
+      {stepList}
+    </div>
+  );
 }
 
 export default StatusBar;

@@ -67,7 +67,7 @@ function EditOrder(props) {
   }
 
   return (
-    <div data-testid="order-detail" className={styles.detailContainer}>
+    <div data-testid="order-edit" className={styles.detailContainer}>
       <div className={styles.detailStatus}>
         <h2>Order</h2>
         <div className={styles.orderTools}>
