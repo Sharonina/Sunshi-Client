@@ -4,7 +4,7 @@ import StatusBarComponent from "@/components/statusBar/StatusBar.component";
 import Button from "@/components/button/Button.component";
 import { userRoles } from "@/utils/constants/authentication";
 import { orderStatuses } from "@/utils/constants/orders";
-import { useApi } from "@/hooks/useAPi/useApi";
+import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 
 function OrderDetail(props) {
