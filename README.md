@@ -2,7 +2,7 @@
 
 #
 
-App created for a japanese food restaurant
+Web app created for a japanese food restaurant
 
 # Tech Stack
 
@@ -11,6 +11,13 @@ App created for a japanese food restaurant
 **Server:** Node, Express, MongoDB
 
 # Prototypes
+
+## Low fidelity
+
+![Login](./src/assets/low1.png)
+![Products](./src/assets/low2.png)
+![Orders](./src/assets/low3.png)
+![Order](./src/assets/low4.png)
 
 ## High fidelity
 
