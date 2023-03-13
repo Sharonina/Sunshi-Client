@@ -7,15 +7,18 @@ import fetch from "cross-fetch";
 
 global.fetch = fetch;
 
+//antes de los test que abra el servidor. Que nos de una adv. si hay algo no manejado
 beforeAll(() => {
   server.listen({ onUnhandledRequest: `warn` });
 });
 
+// luego de los test, limpiar + reset a handlers
 afterEach(() => {
   server.resetHandlers();
   cleanup();
 });
 
+//cerrar servidor
 afterAll(() => {
   server.close();
 });

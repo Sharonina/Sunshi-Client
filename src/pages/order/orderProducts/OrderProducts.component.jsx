@@ -65,11 +65,13 @@ function OrderProducts(props) {
   }, []);
 
   return (
-    <InteractiveCategory
-      categories={productItems}
-      selectedCategory={selectedCategory}
-      setSelectedCategory={handleSelectedCategory}
-    />
+    <div data-testid="order-products" className={styles.orderProducts}>
+      <InteractiveCategory
+        categories={productItems}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={handleSelectedCategory}
+      />
+    </div>
   );
 }
 

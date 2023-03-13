@@ -19,7 +19,7 @@ describe("InteractiveCategory", () => {
         categories={[
           {
             category: "Food",
-            products: [
+            items: [
               <div key="product" onClick={() => {}}>
                 <img src={""} alt={""} />
                 <h3>{""}</h3>

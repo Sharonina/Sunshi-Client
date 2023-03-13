@@ -1,8 +1,9 @@
 import { rest } from "msw";
+import { routes } from "@/utils/constants/routes";
 const { VITE_API_URL } = import.meta.env;
 
 export const productHandlers = [
-  rest.get(`${VITE_API_URL}/products`, (req, res, ctx) => {
+  rest.get(`${VITE_API_URL}${routes.PRODUCTS}`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json([

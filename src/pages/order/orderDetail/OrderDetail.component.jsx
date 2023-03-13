@@ -4,7 +4,7 @@ import StatusBarComponent from "@/components/statusBar/StatusBar.component";
 import Button from "@/components/button/Button.component";
 import { userRoles } from "@/utils/constants/authentication";
 import { orderStatuses } from "@/utils/constants/orders";
-import { useApi } from "@/hooks/useAPi/useApi";
+import { useApi } from "@/hooks/useApi/useApi";
 import { routes } from "@/utils/constants/routes";
 
 function OrderDetail(props) {
@@ -36,7 +36,7 @@ function OrderDetail(props) {
   }
 
   const OrderButton = () => {
-    if (order?.status.toLowerCase() === orderStatuses.PENDING) {
+    if (order?.status?.toLowerCase() === orderStatuses.PENDING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
           <Button
@@ -61,7 +61,7 @@ function OrderDetail(props) {
         );
       }
     }
-    if (order?.status.toLowerCase() === orderStatuses.DELIVERING) {
+    if (order?.status?.toLowerCase() === orderStatuses.DELIVERING) {
       if (userRole === userRoles.WAITER || userRole === userRoles.ADMIN) {
         return (
           <Button
@@ -144,7 +144,7 @@ function OrderDetail(props) {
       </div>
       <div className={styles.changeStatusBtn}>
         <OrderButton />
-        {order?.status.toLowerCase() === orderStatuses.DELIVERED && (
+        {order?.status?.toLowerCase() === orderStatuses.DELIVERED && (
           <span>
             Processed order in: {getTimeToPrepare().toFixed(0)} minutes
           </span>
